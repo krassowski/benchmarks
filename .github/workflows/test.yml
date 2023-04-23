@@ -65,13 +65,6 @@ jobs:
           jlpm run build
         working-directory: reference
 
-      - name: Install testing dependencies
-        # This is done after installing the reference in order to have jlpm available.
-        shell: bash
-        run: |
-          jlpm install
-        working-directory: benchmarks/tests
-
       - name: Install extensions
         # This is done after installing the reference in order to have jlpm available.
         run: |
@@ -89,6 +82,13 @@ jobs:
         run: |
           # Mount a volume to overwrite the server configuration
           jlpm start-jlab 2>&1 > /tmp/jupyterlab_server.log &
+        working-directory: benchmarks/tests
+
+      - name: Install testing dependencies
+        # This is done after installing the reference in order to have jlpm available.
+        shell: bash
+        run: |
+          jlpm install
         working-directory: benchmarks/tests
 
       - name: Install browser

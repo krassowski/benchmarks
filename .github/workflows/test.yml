@@ -50,12 +50,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install testing dependencies
-        shell: bash
-        run: |
-          jlpm install
-        working-directory: benchmarks/tests
-
       - name: Checkout JupyterLab
         uses: actions/checkout@v3
         with:
@@ -71,12 +65,20 @@ jobs:
           jlpm run build
         working-directory: reference
 
+      - name: Install testing dependencies
+        # This is done after installing the reference in order to have jlpm available.
+        shell: bash
+        run: |
+          yarn install
+        working-directory: benchmarks/tests
+
       - name: Install extensions
         # This is done after installing the reference in order to have jlpm available.
         run: |
           set -ex
           pip install ipywidgets plotly
           pip install -v extensions/fixed-data-table
+          pip install jupyterlab-ui-profiler
 
           jupyter server extension list
           jupyter labextension list

@@ -128,12 +128,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install testing dependencies
-        shell: bash
-        run: |
-          jlpm install
-        working-directory: benchmarks/tests
-
       # First run the benchmark on the reference
       - name: Checkout reference branch
         if: ${{ inputs.event == 'workflow_dispatch' }}
@@ -168,6 +162,14 @@ jobs:
           # Build dev mode
           jlpm run build
         working-directory: reference
+
+      - name: Install testing dependencies
+        # This is done after installing the reference in order to have jlpm available.
+        # NOTE: jlpm version on jupyterlab@master changed, so problems abound
+        shell: bash
+        run: |
+          jlpm install
+        working-directory: benchmarks/tests
 
       - name: Install extensions
         # This is done after installing the reference in order to have jlpm available.

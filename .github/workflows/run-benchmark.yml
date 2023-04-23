@@ -176,7 +176,7 @@ jobs:
         run: |
           set -ex
           pip install ipywidgets plotly
-          pip install -v extensions/fixed-data-tabletestInfo
+          pip install -v extensions/fixed-data-table
           pip install jupyterlab-ui-profiler
 
           jupyter server extension list

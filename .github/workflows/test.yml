@@ -69,7 +69,7 @@ jobs:
         # This is done after installing the reference in order to have jlpm available.
         shell: bash
         run: |
-          yarn install
+          jlpm install
         working-directory: benchmarks/tests
 
       - name: Install extensions

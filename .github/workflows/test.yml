@@ -95,7 +95,7 @@ jobs:
       - name: Launch JupyterLab
         shell: bash
         run: |
-          yarn start-jlab 2>&1 /tmp/jupyterlab_server.log &
+          yarn start-jlab 2>&1 > /tmp/jupyterlab_server.log &
         working-directory: benchmarks/tests
 
       - name: Install testing dependencies

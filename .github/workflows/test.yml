@@ -102,10 +102,17 @@ jobs:
         working-directory: benchmarks/tests
 
       - name: Wait for JupyterLab
+        id: waitForlab
         uses: ifaxity/wait-on-action@v1
         with:
           resource: http-get://localhost:9999/lab
           timeout: 360000
+
+      - name: Print JupyterLab log
+        shell: bash
+        if: failure() && steps.waitForlab.outcome == 'failure'
+        run: |
+          cat /tmp/jupyterlab_server.log
 
       - name: Execute benchmark tests for validation
         working-directory: benchmarks/tests

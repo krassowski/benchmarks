@@ -444,7 +444,7 @@ __metadata:
     fkill-cli: ^6.0.1
     path: ~0.12.7
     rimraf: ^3.0.2
-    typescript: ~4.1.3
+    typescript: ~4.9.0
   languageName: unknown
   linkType: soft
 
@@ -452,6 +452,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jupyterlab/benchmarks@workspace:."
   dependencies:
+    "@types/node": ^18.15.3
     lerna: ^3.22.1
     rimraf: ^3.0.2
   languageName: unknown
@@ -2724,7 +2725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>= 8":
+"@types/node@npm:*, @types/node@npm:>= 8, @types/node@npm:^18.15.3":
   version: 18.16.3
   resolution: "@types/node@npm:18.16.3"
   checksum: 816b39d45b05ebdc6f362b630970df3f6d82f71d418a2555353522f4eeeb078fa201de5299f02c09a09faa975e43b2745fe19c263d44069f87ddf37d6c37b717
@@ -12320,6 +12321,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:~4.9.0":
+  version: 4.9.5
+  resolution: "typescript@npm:4.9.5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
+  languageName: node
+  linkType: hard
+
 "typescript@patch:typescript@~4.1.3#~builtin<compat/typescript>":
   version: 4.1.6
   resolution: "typescript@patch:typescript@npm%3A4.1.6#~builtin<compat/typescript>::version=4.1.6&hash=4a8eb8"
@@ -12327,6 +12338,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 3bd9915f236817e4e2d32dd0d90e8902875929f014bb87a478000e32adda91d12f0425931ee6f9d6a2bc7d0c9242588fcee1050ac294497dfabf27d3d73b335c
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@~4.9.0#~builtin<compat/typescript>":
+  version: 4.9.5
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: ab417a2f398380c90a6cf5a5f74badd17866adf57f1165617d6a551f059c3ba0a3e4da0d147b3ac5681db9ac76a303c5876394b13b3de75fdd5b1eaa06181c9d
   languageName: node
   linkType: hard
 

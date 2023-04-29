@@ -95,7 +95,7 @@ jobs:
       - name: Launch JupyterLab
         shell: bash
         run: |
-          yarn start-jlab 2>&1 | tee -a /tmp/jupyterlab_server.log &
+          yarn start-jlab 2>&1 /tmp/jupyterlab_server.log &
         working-directory: benchmarks/tests
 
       - name: Install testing dependencies
@@ -117,12 +117,6 @@ jobs:
         with:
           resource: http-get://localhost:9999/lab
           timeout: 360000
-
-      - name: Print JupyterLab log
-        shell: bash
-        if: failure() && steps.waitForlab.outcome == 'failure'
-        run: |
-          cat /tmp/jupyterlab_server.log
 
       - name: Execute benchmark tests for validation
         working-directory: benchmarks/tests

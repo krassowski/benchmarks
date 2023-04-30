@@ -5,6 +5,8 @@ import type { MenuOpenScenarioOptions } from "@jupyterlab/ui-profiler/lib/types/
 import type { TabScenarioOptions } from "@jupyterlab/ui-profiler/lib/types/_scenario-tabs";
 import type { SidebarsScenarioOptions } from "@jupyterlab/ui-profiler/lib/types/_scenario-sidebars";
 import type { DebuggerScenarioOptions } from "@jupyterlab/ui-profiler/lib/types/_scenario-debugger";
+import type { CompleterScenarioOptions } from "@jupyterlab/ui-profiler/lib/types/_scenario-completer";
+import type { ScrollScenarioOptions } from "@jupyterlab/ui-profiler/lib/types/_scenario-scroll";
 import type { ExecutionTimeBenchmarkOptions } from "@jupyterlab/ui-profiler/lib/types/_benchmark-execution";
 import * as path from "path";
 import { test } from "../fixtures/ui-profiler";
@@ -174,6 +176,73 @@ test.describe("Benchmark using UI Profiler", () => {
         benchmark.addAttachment({
           ...attachmentCommon,
           test: "debugger:execution-time",
+          time: time,
+        })
+      );
+    }
+  });
+
+  test(`completer`, async ({ page, tmpPath, profiler }, testInfo) => {
+    const result = (await profiler.runBenchmark(
+      {
+        id: "completer",
+        options: {
+          editor: "Notebook",
+          path: "",
+          setup: {
+            tokenCount: 1000,
+            tokenSize: 50,
+          },
+        } as CompleterScenarioOptions as any,
+      },
+      {
+        id: "execution-time",
+        options: {
+          repeats: benchmark.nSamples,
+        } as ExecutionTimeBenchmarkOptions,
+      }
+    )) as IBenchmarkResult<ITimingOutcome>;
+
+    const times = result.outcome.reference;
+    for (let time of times) {
+      testInfo.attachments.push(
+        benchmark.addAttachment({
+          ...attachmentCommon,
+          test: "completer:execution-time",
+          time: time,
+        })
+      );
+    }
+  });
+
+  test(`scroll`, async ({ page, tmpPath, profiler }, testInfo) => {
+    const result = (await profiler.runBenchmark(
+      {
+        id: "scroll",
+        options: {
+          editor: "Notebook",
+          editorContent:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          // TODO: more cells in one, and less cell with cell-by-cell on in another
+          cells: 100,
+          cellByCell: false,
+          path: "",
+        } as ScrollScenarioOptions as any,
+      },
+      {
+        id: "execution-time",
+        options: {
+          repeats: benchmark.nSamples,
+        } as ExecutionTimeBenchmarkOptions,
+      }
+    )) as IBenchmarkResult<ITimingOutcome>;
+
+    const times = result.outcome.reference;
+    for (let time of times) {
+      testInfo.attachments.push(
+        benchmark.addAttachment({
+          ...attachmentCommon,
+          test: "scroll:execution-time",
           time: time,
         })
       );
